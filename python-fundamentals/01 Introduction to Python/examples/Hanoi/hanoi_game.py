@@ -1,10 +1,11 @@
 import pygame
 from colour import Color
+from config import *
 
 pygame.display.set_caption('Hanoi Towers Simulator')
 
 class Disk:
-    vel = 15
+    vel = DISK_VEL
     UP = 1
     DOWN = 2
     LEFT = 3
@@ -13,8 +14,8 @@ class Disk:
     MOVING = 10
     QUIET = 11
 
-    HEIGHT = 35
-    WIDTH = 80
+    HEIGHT = DISK_HEIGHT
+    WIDTH = DISK_WIDTH
     ADDITIONAL_WIDTH = 45
 
     def __init__(self, center, id_disk, color):
@@ -107,7 +108,7 @@ def hanoi(n, source, target, other):
 def main():
     WIDTH, HEIGHT = 1200, 800
     surf = pygame.display.set_mode((WIDTH, HEIGHT))
-    BG_COLOR = (12, 53, 106)
+    BG_COLOR = BACKGROUND_COLOR
 
     # ==== POSTS ====
 
@@ -128,14 +129,15 @@ def main():
 
     # === DISKS ====
 
-    n_disks = 6
+    n_disks = NUM_DISKS
 
-    colors = [(95, 134, 112),
-              (255, 152, 0),
-              (184, 0, 0),
-              (56, 135, 190),
-              (195, 172, 208),
-              (251, 236, 178)]
+    colors = DISK_COLORS
+    # colors = [(95, 134, 112),
+              # (255, 152, 0),
+              # (184, 0, 0),
+              # (56, 135, 190),
+              # (195, 172, 208),
+              # (251, 236, 178)]
 
     positions = [[], [], []]
 
@@ -143,7 +145,7 @@ def main():
 
     for i in reversed(range(n_disks)):
         disks_inserted = len(disks)
-        disks.append(Disk((posts[0].centerx, posts[0].bottom - disks_inserted * Disk.HEIGHT - Disk.HEIGHT // 2), i, colors[i]))
+        disks.append(Disk((posts[0].centerx, posts[0].bottom - disks_inserted * Disk.HEIGHT - Disk.HEIGHT // 2), i, colors[i % 6]))
         positions[0].append(i)
 
     disks.reverse()
