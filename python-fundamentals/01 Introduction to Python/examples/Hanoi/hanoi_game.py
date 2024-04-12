@@ -55,14 +55,14 @@ class Disk:
         if self.rect.centerx >= lmt_right:
             self.rect.centerx = lmt_right
             self.state = self.QUIET
-    
+
     def move(self):
         if len(self.movements) == 0: return
 
         self.state = self.MOVING
 
         direction, lmt = self.movements[0]
-            
+
         if direction == self.UP: self.move_up(lmt)
         elif direction == self.DOWN: self.move_down(lmt)
         elif direction == self.LEFT: self.move_left(lmt)
@@ -76,10 +76,10 @@ class Disk:
 
     def draw(self, surf):
         pygame.draw.rect(surf, self.color, self.rect, border_radius=10)
-    
+
 def move_disk(positions, disks, posts, source_post_id, target_post_id):
     id_disk = positions[source_post_id].pop(-1)
-    
+
     source_post = posts[source_post_id]
     target_post = posts[target_post_id]
 
@@ -97,7 +97,7 @@ def move_disk(positions, disks, posts, source_post_id, target_post_id):
 def hanoi(n, source, target, other):
     if n == 1:
         return [(source, target)]
-    
+
     ans = []
     ans += hanoi(n-1, source, other, target)
     ans += [(source, target)]
@@ -117,7 +117,7 @@ def main():
     COLOR_POST = (222, 143, 95)
 
     posts = []
-    
+
     for i in range(3):
         centerx = 200 + 400 * i
         centery = HEIGHT // 2
@@ -179,7 +179,7 @@ def main():
         some_disk_is_moving = False
         for disk in disks:
             disk.move()
-            if disk.is_moving(): 
+            if disk.is_moving():
                 some_disk_is_moving = True
 
         surf.fill(BG_COLOR)
